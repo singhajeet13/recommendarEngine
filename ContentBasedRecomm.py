@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# Reading ratings file
+
 
 
 # Define file directories
@@ -36,9 +36,9 @@ RATINGS_CSV_FILE = 'ratings.csv'
 
 
 # Read the Ratings File
-ratings = pd.read_csv(os.path.join(MOVIELENS_DIR, RATING_DATA_FILE), 
-                    sep='::', 
-                    engine='python', 
+ratings = pd.read_csv(os.path.join(MOVIELENS_DIR, RATING_DATA_FILE),
+                    sep='::',
+                    engine='python',
                     encoding='latin-1',
                     names=['user_id', 'movie_id', 'rating', 'timestamp'])
 
@@ -56,18 +56,18 @@ ratings['movie_emb_id'] = ratings['movie_id'] - 1
 print(len(ratings), 'ratings loaded')
 
 # Save into ratings.csv
-ratings.to_csv(RATINGS_CSV_FILE, 
-               sep='\t', 
-               header=True, 
-               encoding='latin-1', 
+ratings.to_csv(RATINGS_CSV_FILE,
+               sep='\t',
+               header=True,
+               encoding='latin-1',
                columns=['user_id', 'movie_id', 'rating', 'timestamp', 'user_emb_id', 'movie_emb_id'])
 print('Saved to', RATINGS_CSV_FILE)
 
 
 # Read the Users File
-users = pd.read_csv(os.path.join(MOVIELENS_DIR, USER_DATA_FILE), 
-                    sep='::', 
-                    engine='python', 
+users = pd.read_csv(os.path.join(MOVIELENS_DIR, USER_DATA_FILE),
+                    sep='::',
+                    engine='python',
                     encoding='latin-1',
                     names=['user_id', 'gender', 'age', 'occupation', 'zipcode'])
 users['age_desc'] = users['age'].apply(lambda x: AGES[x])
@@ -76,27 +76,27 @@ print(len(users), 'descriptions of', max_userid, 'users loaded.')
 
 
 # Save into users.csv
-users.to_csv(USERS_CSV_FILE, 
-             sep='\t', 
-             header=True, 
+users.to_csv(USERS_CSV_FILE,
+             sep='\t',
+             header=True,
              encoding='latin-1',
              columns=['user_id', 'gender', 'age', 'occupation', 'zipcode', 'age_desc', 'occ_desc'])
 print('Saved to', USERS_CSV_FILE)
 
 
 # Read the Movies File
-movies = pd.read_csv(os.path.join(MOVIELENS_DIR, MOVIE_DATA_FILE), 
-                    sep='::', 
-                    engine='python', 
+movies = pd.read_csv(os.path.join(MOVIELENS_DIR, MOVIE_DATA_FILE),
+                    sep='::',
+                    engine='python',
                     encoding='latin-1',
                     names=['movie_id', 'title', 'genres'])
 print(len(movies), 'descriptions of', max_movieid, 'movies loaded.')
 
 
 # Save into movies.csv
-movies.to_csv(MOVIES_CSV_FILE, 
-              sep='\t', 
-              header=True, 
+movies.to_csv(MOVIES_CSV_FILE,
+              sep='\t',
+              header=True,
               columns=['movie_id', 'title', 'genres'])
 print('Saved to', MOVIES_CSV_FILE)
 
@@ -128,13 +128,13 @@ for s in movies['genres'].str.split('|').values:
 # Function that counts the number of times each of the genre keywords appear
 def count_word(dataset, ref_col, census):
     keyword_count = dict()
-    for s in census: 
+    for s in census:
         keyword_count[s] = 0
-    for census_keywords in dataset[ref_col].str.split('|'):        
-        if type(census_keywords) == float and pd.isnull(census_keywords): 
-            continue        
-        for s in [s for s in census_keywords if s in census]: 
-            if pd.notnull(s): 
+    for census_keywords in dataset[ref_col].str.split('|'):
+        if type(census_keywords) == float and pd.isnull(census_keywords):
+            continue
+        for s in [s for s in census_keywords if s in census]:
+            if pd.notnull(s):
                 keyword_count[s] += 1
     #______________________________________________________________________
     # convert the dictionary in a list to sort the keywords by frequency

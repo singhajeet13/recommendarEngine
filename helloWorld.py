@@ -19,6 +19,8 @@ app = Flask(__name__)
 
 # Reading ratings file
 # Ignore the timestamp column
+
+#mdfbvjhdfgjgb
 ratings = pd.read_csv('ratings.csv', sep='\t', encoding='latin-1', usecols=['user_id', 'movie_id', 'rating'])
 
 # Reading users file
@@ -54,15 +56,15 @@ def genre_recommendations(title):
     movie_indices.remove(idx)
     return titles.iloc[movie_indices]
 #genre_recommendations('Good Will Hunting (1997)').head(5)
-    
+
 
 
 def printMovies(username=None):
     recommMovies = list(genre_recommendations('Good Will Hunting (1997)').head(5))
     print(recommMovies)
-    
+
     print("People who watched {0} also watched ---!".format(username))
-    
+
 @app.route('/movie-recomm/<string:username>', methods=['GET', 'POST'])
 def hello_world(username=None):
     recommMovies = list(genre_recommendations(username).head(5))
@@ -75,6 +77,6 @@ def hello_world(username=None):
            '''.format(username,recommMovies[0],recommMovies[1],recommMovies[2],recommMovies[3],recommMovies[4]))
 
 @app.route('/movieName/<string:name>')
-def movieName(name=None):   
+def movieName(name=None):
     return render_template(
         'movies.html',name=name)
