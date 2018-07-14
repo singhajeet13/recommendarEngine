@@ -181,10 +181,24 @@ def genre_recommendations(title):
     movie_indices.remove(idx)
     return titles.iloc[movie_indices]
 
-#genre_recommendations(dataset['title'][0]).head(20)
+#----------------------------------------------------------
+#OUTPUT
+#----------------------------------------------------------
+genre_recommendations('Money Train (1995)').head(5)
+
+#70                         Fair Game (1995)
+#143                         Bad Boys (1995)
+#202    Under Siege 2: Dark Territory (1995)
+#224                        Drop Zone (1994)
+#248                      Hunted, The (1995)
 
 genre_recommendations('Bad Boys (1995)').head(5)
 
-genre_recommendations(dataset['title'][100]).head(5)
+#Out[37]:
+#19                       Money Train (1995)
+#70                         Fair Game (1995)
+#202    Under Siege 2: Dark Territory (1995)
+#224                        Drop Zone (1994)
+#248                      Hunted, The (1995)
 
 print(dataset['title'][100])
